@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="RadixConverter.Android/RadixConverter.Android.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="Android.Nexus 5 (KitKat)" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RadixConverter.Android/RadixConverterActivity.cs">
+    <Files>
+      <File FileName="RadixConverter.Android/Resources/layout/RadixConverter.axml" Line="26" Column="26" />
+      <File FileName="RadixConverter.Android/RadixConverterActivity.cs" Line="35" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

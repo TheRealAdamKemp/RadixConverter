@@ -11,27 +11,30 @@ namespace RadixConverter.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            
-            DecimalStringView.ShouldReturn += HandleShouldReturn;
-            HexStringView.ShouldReturn += HandleShouldReturn;
+
+            InitializeStringView(DecimalStringView, _radixConverterModel.DecimalString);
+            InitializeStringView(HexStringView, _radixConverterModel.HexString);
+        }
+
+        private void InitializeStringView(UITextField view, string text)
+        {
+            view.ShouldReturn += HandleShouldReturn;
+            view.Text = text;
         }
 
         private bool HandleShouldReturn(UITextField sender)
         {
             if (sender == DecimalStringView)
             {
-                if (_radixConverterModel.TrySetDecimalString(DecimalStringView.Text))
-                {
-                    HexStringView.Text = _radixConverterModel.HexString;
-                }
+                _radixConverterModel.TrySetDecimalString(DecimalStringView.Text);
             }
             else if (sender == HexStringView)
             {
-                if (_radixConverterModel.TrySetHexString(HexStringView.Text))
-                {
-                    DecimalStringView.Text = _radixConverterModel.DecimalString;
-                }
+                _radixConverterModel.TrySetHexString(HexStringView.Text);
             }
+
+            DecimalStringView.Text = _radixConverterModel.DecimalString;
+            HexStringView.Text = _radixConverterModel.HexString;
 
             View.EndEditing(true);
 

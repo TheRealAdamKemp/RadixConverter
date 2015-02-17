@@ -15,6 +15,11 @@ namespace RadixConverter.Model
 
         #endregion
 
+        public RadixConverterModel()
+        {
+            UpdateStrings();
+        }
+
         public int Value { get; set; }
 
         public string DecimalString { get; private set; }
@@ -34,6 +39,11 @@ namespace RadixConverter.Model
         #region Private Methods
 
         private void OnValueChanged()
+        {
+            UpdateStrings();
+        }
+
+        private void UpdateStrings()
         {
             DecimalString = FormatValue(DecimalFormat);
             HexString = FormatValue(HexFormat);

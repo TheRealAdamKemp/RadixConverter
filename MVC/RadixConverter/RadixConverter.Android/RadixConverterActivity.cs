@@ -8,7 +8,7 @@ using RadixConverter.Model;
 namespace RadixConverter.Android
 {
     [Activity(Label = "RadixConverter.Android", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class RadixConverterActivity : Activity
     {
         private readonly RadixConverterModel _radixConverterModel = new RadixConverterModel();
 
@@ -20,31 +20,33 @@ namespace RadixConverter.Android
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.RadixConverter);
 
-            _decimalStringView = FindViewById<EditText>(Resource.Id.DecimalStringView);
-            _hexStringView = FindViewById<EditText>(Resource.Id.HexStringView);
-            
-            _decimalStringView.EditorAction += HandleEditorAction;
-            _hexStringView.EditorAction += HandleEditorAction;
+            _decimalStringView = FindAndInitializeEditText(Resource.Id.DecimalStringView, _radixConverterModel.DecimalString);
+            _hexStringView = FindAndInitializeEditText(Resource.Id.HexStringView, _radixConverterModel.HexString);
+        }
+
+        private EditText FindAndInitializeEditText(int id, string text)
+        {
+            var editText = FindViewById<EditText>(id);
+            editText.Text = text;
+            editText.EditorAction += HandleEditorAction;
+            return editText;
         }
 
         private void HandleEditorAction(object sender, TextView.EditorActionEventArgs e)
         {
             if (sender == _decimalStringView)
             {
-                if (_radixConverterModel.TrySetDecimalString(_decimalStringView.Text))
-                {
-                    _hexStringView.Text = _radixConverterModel.HexString;
-                }
+                _radixConverterModel.TrySetDecimalString(_decimalStringView.Text);
             }
             else if (sender == _hexStringView)
             {
-                if (_radixConverterModel.TrySetHexString(_hexStringView.Text))
-                {
-                    _decimalStringView.Text = _radixConverterModel.DecimalString;
-                }
+                _radixConverterModel.TrySetHexString(_hexStringView.Text);
             }
+
+            _decimalStringView.Text = _radixConverterModel.DecimalString;
+            _hexStringView.Text = _radixConverterModel.HexString;
 
             InputMethodManager manager = (InputMethodManager) GetSystemService(InputMethodService);
             manager.HideSoftInputFromWindow(_decimalStringView.WindowToken, 0);

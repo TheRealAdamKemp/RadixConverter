@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RadixConverter;assembly=RadixConverter"
+    x:Class="RadixConverter.RadixConverterPage"
+    Title="Radix Converter">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="About" Clicked="HandleAboutClicked" />
+    </ContentPage.ToolbarItems>
+    <StackLayout Orientation="Vertical">
+        <Label Text="Decimal" />
+        <local:OrderedEntry
+            x:Name="DecimalStringEntry"
+            NextEntry="{x:Reference Name=HexStringEntry}"
+            Keyboard="Numeric"
+            Placeholder="Decimal String"
+            Text="{Binding DecimalString}"
+            Unfocused="HandleEntryEditingCompleted" />
+        <Label Text="Hex" />
+        <local:OrderedEntry
+            x:Name="HexStringEntry"
+            PreviousEntry="{x:Reference Name=DecimalStringEntry}"
+            Placeholder="Hex String"
+            Text="{Binding HexString}"
+            Unfocused="HandleEntryEditingCompleted" />
+    </StackLayout>
+</ContentPage>
